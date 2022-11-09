@@ -27,12 +27,12 @@ function starting() {
                 }
                 else {
                     console.log("\nTeam complete")
-                    fs.writeFile("index.html", generateHtml(genDivs(team))
-                        .then(() => console.log('Successfully wrote to index.html'))
-                        .catch((err) => console.error(err)))
+                    fs.writeFile("index.html", generateHtml(genDivs(team)), (err) =>
+                        err ? console.log(err) : console.log('Success!')
+                    );
 
                 }
-                console.log(team)
+                // console.log(team)
             })
     }
 
@@ -134,7 +134,7 @@ function starting() {
 
 starting();
 
-function generateHtml(employee) {
+function generateHtml(profiles) {
     return ` <!DOCTYPE html>
         <html lang="en">
         <head>
@@ -145,25 +145,35 @@ function generateHtml(employee) {
             <link rel="stylesheet" type="text/css" href="./style.css">
         </head>
         <body>
-        <div class="profileOne">Employee type: ${employee.getRole()}</div>
-        <div class="profileTwo">test</div>
+        ${profiles}
         </body>
         </html>  `
 }
-// const sophie = new employees.Manager("Sophie", "7097", "dsadsa", "8908")
-// console.log(generateHtml(sophie))
+
 
 function genDiv(employee) {
-    return `
-        <div class="profileTwo">${employee.getRole(), employee.getName()}</div>
-        `
+    // console.log(employee)
+    if (employee.getRole() === "Manager") {
+        return `
+        <div class="profile">Role: ${employee.getRole()}, Name: ${employee.getName()}, ID: ${employee.getID()}, Email: <a href = "mailto: ${employee.getEmail()}">${employee.getEmail()}</a>, Office Number: ${employee.officeNumber} </div>
+        `}
+    if (employee.getRole() === "Engineer") {
+        return `
+        <div class="profile">Role: ${employee.getRole()}, Name: ${employee.getName()}, ID: ${employee.getID()}, Email: <a href = "mailto: ${employee.getEmail()}">${employee.getEmail()}</a>, Github: <a href="https://github.com/${employee.github}" target="_blank"> ${employee.github} </div>
+        `}
+    if (employee.getRole() === "Intern") {
+        return `
+            <div class="profile">Role: ${employee.getRole()}, Name: ${employee.getName()}, ID: ${employee.getID()}, Email: <a href = "mailto: ${employee.getEmail()}">${employee.getEmail()}</a>, school: ${employee.getSchool}</div>
+            `}
 }
+
 
 function genDivs(team) {
     let divs = ""
     for (let index = 0; index < team.length; index++) {
         const employee = team[index];
         divs += genDiv(employee)
+        // console.log(employee)
     }
     return divs
 }

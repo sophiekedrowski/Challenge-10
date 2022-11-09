@@ -21,6 +21,8 @@
   ## Description 
  Using the CLI to run test, use inquirer to get user input to build a team of interns,Engineers and Managers. After User input is gathered a HTML paged is created with the input. 
 
+[Video Walk Through](https://www.youtube.com/video/Uvw6jJxrt48/edit)
+
   ## License 
  MIT License 
 
